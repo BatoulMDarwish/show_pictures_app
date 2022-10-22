@@ -8,16 +8,14 @@ import 'blocs/bloc/handle_pictures_bloc.dart';
 void main() {
   runApp(const MyApp());
 }
-void imBusy() {
-  for (var i = 0; i < 9999999; i++) {}
-}
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    imBusy();
+
     return BlocProvider<HandlePicturesBloc>(
       create: (BuildContext context) =>
           HandlePicturesBloc()..add(GetPhotoEvent(numberPage: 1))..add(CreatDatabaseEvent()),

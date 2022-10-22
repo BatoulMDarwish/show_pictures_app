@@ -121,8 +121,13 @@ class _SearchScreenState extends State<SearchScreen> {
                                           IconButton(
                                               onPressed: () {
                                                 bloc.add(InsertDatabaseEvent(
-                                                    id1: bloc.photoModel[index].id!,
-                                                    url: bloc.photoModel[index].urls!['regular'],
+                                                    id1: bloc.searchModel.result[index]
+                                                        .urls!.id!,
+                                                    url: bloc
+                                                        .searchModel!
+                                                        .result[index]
+                                                        .urls!
+                                                        .regular!,
                                                     status: 'favorite'
                                                 ));
                                               },
@@ -141,11 +146,15 @@ class _SearchScreenState extends State<SearchScreen> {
                                           ),
                                           IconButton(
                                               onPressed: () {
-                                                String uri = bloc.photoModel[index]
-                                                    .urls!['regular'];
+                                                String uri =bloc
+                                                    .searchModel!
+                                                    .result[index]
+                                                    .urls!
+                                                    .regular!;
                                                 bloc.add(SaveImageEvent(uri: uri));
                                                 bloc.add(InsertDatabaseEvent(
-                                                    id1: bloc.photoModel[index].id!,
+                                                    id1: bloc.searchModel.result[index]
+                                                        .urls!.id!,
                                                     url: uri,
                                                     status: 'download'
                                                 ));
