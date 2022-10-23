@@ -9,16 +9,15 @@ void main() {
   runApp(const MyApp());
 }
 
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-
     return BlocProvider<HandlePicturesBloc>(
-      create: (BuildContext context) =>
-          HandlePicturesBloc()..add(GetPhotoEvent(numberPage: 1))..add(CreatDatabaseEvent()),
+      create: (BuildContext context) => HandlePicturesBloc()
+        ..add(GetPhotoEvent(numberPage: 1))
+        ..add(CreatDatabaseEvent()),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Show Pictures',

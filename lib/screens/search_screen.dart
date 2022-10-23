@@ -13,32 +13,30 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   var searchController = TextEditingController();
-  ScrollController _controller=ScrollController();
-  bool isReached=true ;
-  int page1=1;
+  ScrollController _controller = ScrollController();
+  bool isReached = true;
+  int page1 = 1;
   String? text;
   var bloc;
   @override
   void initState() {
-
     super.initState();
     bloc = HandlePicturesBloc.get(context);
     _controller.addListener(_onScroll);
   }
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<HandlePicturesBloc, HandlePicturesState>(
       listener: (context, state) {
-        if(state is SaveImageSuccessState)
-        {
+        if (state is SaveImageSuccessState) {
           showToast(
-            text:'Image downloaded to gallery' ,
+            text: 'Image downloaded to gallery',
             state: ToastStates.SUCCESS,
           );
-        }
-        else if(state is SaveImageErrorState){
+        } else if (state is SaveImageErrorState) {
           showToast(
-            text:'Something wrong happened' ,
+            text: 'Something wrong happened',
             state: ToastStates.ERROR,
           );
         }
@@ -65,8 +63,8 @@ class _SearchScreenState extends State<SearchScreen> {
                         prefixIcon: Icon(Icons.search)),
                     keyboardType: TextInputType.text,
                     onFieldSubmitted: (String? text) {
-                      text=text;
-                      bloc.add(SearchItemEvent(text: text,number: page1));
+                      text = text;
+                      bloc.add(SearchItemEvent(text: text, number: page1));
                     }),
                 const SizedBox(
                   height: 10,
@@ -79,10 +77,10 @@ class _SearchScreenState extends State<SearchScreen> {
                 if (state is SearchSuccessState)
                   Expanded(
                       child: SingleChildScrollView(
-                        controller: _controller,
-                        child: Column(
-                         children: [
-                          GridView.count(
+                    controller: _controller,
+                    child: Column(
+                      children: [
+                        GridView.count(
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
                             childAspectRatio: 1 / 1.6,
@@ -90,95 +88,93 @@ class _SearchScreenState extends State<SearchScreen> {
                             crossAxisSpacing: 4,
                             crossAxisCount: 2,
                             children:
-                                List.generate(
-                                    bloc.searchModel!.result.length,
+                                List.generate(bloc.searchModel!.result.length,
                                     // ignore: avoid_unnecessary_containers
                                     (index) {
-                                      if (index < 10){
-                              return Container(
-                                color: Colors.white,
-                                child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Stack(
-                                        alignment:
-                                            AlignmentDirectional.bottomEnd,
-                                        children: [
-                                          Image(
-                                            image: NetworkImage(bloc
-                                                .searchModel!
-                                                .result[index]
-                                                .urls!
-                                                .regular!),
-                                            width: 200.0,
-                                            height: 200.0,
-                                          ),
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          IconButton(
-                                              onPressed: () {
-                                                bloc.add(InsertDatabaseEvent(
-                                                    id1: bloc.searchModel.result[index].id!,
-                                                    url: bloc
-                                                        .searchModel!
-                                                        .result[index]
-                                                        .urls!
-                                                        .regular!,
-                                                    status: 'favorite'
-                                                ));
-                                              },
-                                              // ignore: prefer_const_constructors
-                                              icon: CircleAvatar(
-                                                backgroundColor:primaryColor,
-                                                radius: 15,
-                                                child: const Icon(
-                                                  Icons.favorite_border,
-                                                  color: Colors.white,
-                                                  size: 14,
-                                                ),
-                                              )),
-                                          const SizedBox(
-                                            width: 3.0,
-                                          ),
-                                          IconButton(
-                                              onPressed: () {
-                                                String uri =bloc
-                                                    .searchModel!
-                                                    .result[index]
-                                                    .urls!
-                                                    .regular!;
-                                                bloc.add(SaveImageEvent(uri: uri));
-                                                bloc.add(InsertDatabaseEvent(
-                                                    id1: bloc.searchModel.result[index]
-                                                        .id!,
-                                                    url: uri,
-                                                    status: 'download'
-                                                ));
-                                              },
-                                              // ignore: prefer_const_constructors
-                                              icon: CircleAvatar(
-                                                backgroundColor: primaryColor,
-                                                radius: 15,
-                                                child: const Icon(
-                                                  Icons.download,
-                                                  color: Colors.white,
-                                                  size: 14,
-                                                  //
-                                                ),
-                                              )),
-                                        ],
-                                      )
-                                    ]),
-                              );
-                                      }else{
-                                        return const Center(
-                                          child: CircularProgressIndicator(),
-                                        );
-                                      }
-
+                              if (index < 10) {
+                                return Container(
+                                  color: Colors.white,
+                                  child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Stack(
+                                          alignment:
+                                              AlignmentDirectional.bottomEnd,
+                                          children: [
+                                            Image(
+                                              image: NetworkImage(bloc
+                                                  .searchModel!
+                                                  .result[index]
+                                                  .urls!
+                                                  .regular!),
+                                              width: 200.0,
+                                              height: 200.0,
+                                            ),
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
+                                            IconButton(
+                                                onPressed: () {
+                                                  bloc.add(InsertDatabaseEvent(
+                                                      id1: bloc.searchModel
+                                                          .result[index].id!,
+                                                      url: bloc
+                                                          .searchModel!
+                                                          .result[index]
+                                                          .urls!
+                                                          .regular!,
+                                                      status: 'favorite'));
+                                                },
+                                                // ignore: prefer_const_constructors
+                                                icon: CircleAvatar(
+                                                  backgroundColor: primaryColor,
+                                                  radius: 15,
+                                                  child: const Icon(
+                                                    Icons.favorite_border,
+                                                    color: Colors.white,
+                                                    size: 15,
+                                                  ),
+                                                )),
+                                            const SizedBox(
+                                              width: 3.0,
+                                            ),
+                                            IconButton(
+                                                onPressed: () {
+                                                  String uri = bloc
+                                                      .searchModel!
+                                                      .result[index]
+                                                      .urls!
+                                                      .regular!;
+                                                  bloc.add(
+                                                      SaveImageEvent(uri: uri));
+                                                  bloc.add(InsertDatabaseEvent(
+                                                      id1: bloc.searchModel
+                                                          .result[index].id!,
+                                                      url: uri,
+                                                      status: 'download'));
+                                                },
+                                                // ignore: prefer_const_constructors
+                                                icon: CircleAvatar(
+                                                  backgroundColor: primaryColor,
+                                                  radius: 15,
+                                                  child: const Icon(
+                                                    Icons.download,
+                                                    color: Colors.white,
+                                                    size: 14,
+                                                    //
+                                                  ),
+                                                )),
+                                          ],
+                                        )
+                                      ]),
+                                );
+                              } else {
+                                return const Center(
+                                  child: CircularProgressIndicator(),
+                                );
+                              }
                             })),
                       ],
                     ),
@@ -188,30 +184,34 @@ class _SearchScreenState extends State<SearchScreen> {
       },
     );
   }
+
   @override
   void dispose() {
-    _controller..removeListener(_onScroll)
+    _controller
+      ..removeListener(_onScroll)
       ..dispose();
     super.dispose();
   }
-  void _onScroll(){
-    if(_isBottom){
+
+  void _onScroll() {
+    if (_isBottom) {
       setState(() {
-        isReached=true;
-        page1=page1+1;
+        isReached = true;
+        page1 = page1 + 1;
       });
-      bloc.add(SearchItemEvent(text:text,number: page1 ));
+      bloc.add(SearchItemEvent(text: text, number: page1));
     }
   }
-  bool get _isBottom{
-    if(!_controller.hasClients) {
+
+  bool get _isBottom {
+    if (!_controller.hasClients) {
       setState(() {
-        isReached=false;
+        isReached = false;
       });
       return false;
     }
-    final maxScroll=_controller.position.maxScrollExtent;
-    final currentScroll=_controller.offset;
-    return currentScroll>=(maxScroll*0.9);
+    final maxScroll = _controller.position.maxScrollExtent;
+    final currentScroll = _controller.offset;
+    return currentScroll >= (maxScroll * 0.9);
   }
 }
