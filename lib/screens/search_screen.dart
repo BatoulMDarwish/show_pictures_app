@@ -121,8 +121,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                           IconButton(
                                               onPressed: () {
                                                 bloc.add(InsertDatabaseEvent(
-                                                    id1: bloc.searchModel.result[index]
-                                                        .urls!.id!,
+                                                    id1: bloc.searchModel.result[index].id!,
                                                     url: bloc
                                                         .searchModel!
                                                         .result[index]
@@ -154,7 +153,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                                 bloc.add(SaveImageEvent(uri: uri));
                                                 bloc.add(InsertDatabaseEvent(
                                                     id1: bloc.searchModel.result[index]
-                                                        .urls!.id!,
+                                                        .id!,
                                                     url: uri,
                                                     status: 'download'
                                                 ));
