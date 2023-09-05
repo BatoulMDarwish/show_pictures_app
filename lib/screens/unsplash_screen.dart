@@ -23,7 +23,6 @@ class _UnSplashScreenState extends State<UnSplashScreen> {
   var bloc;
   @override
   void initState() {
-
     super.initState();
     bloc = HandlePicturesBloc.get(context);
     _controller.addListener(_onScroll);

@@ -169,13 +169,14 @@ async{
 
  await event.database.rawQuery('SELECT * FROM tasks').then((value){
    value.forEach((element) {
+
       if (element['status'] == 'download') {
         download.add(element);
       } else if (element['status'] == 'favorite') {
         favorites.add(element);
       }
     });
-   //emit(GetDatabaseState());
+   emit(GetDatabaseState());
   }
   );
 
